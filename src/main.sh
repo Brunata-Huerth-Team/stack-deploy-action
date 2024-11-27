@@ -42,6 +42,7 @@ else
 fi
 
 trap cleanup_trap EXIT HUP INT QUIT PIPE TERM
+docker context rm remote 2>/dev/null || true
 
 echo -e "\u001b[36mVerifying Docker and Setting Context."
 ssh -p "${INPUT_PORT}" "${INPUT_USER}@${INPUT_HOST}" "docker info" > /dev/null
