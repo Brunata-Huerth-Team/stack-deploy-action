@@ -46,6 +46,8 @@ docker context rm -f remote 2>/dev/null || true
 
 echo -e "\u001b[36mVerifying Docker and Setting Context."
 ssh -p "${INPUT_PORT}" "${INPUT_USER}@${INPUT_HOST}" "docker info" > /dev/null
+echo -e "\u001b[36m_DEBUG."
+docker context ls
 
 docker context rm -f remote 2>/dev/null || true
 docker context create remote --docker "host=ssh://${INPUT_USER}@${INPUT_HOST}:${INPUT_PORT}"
