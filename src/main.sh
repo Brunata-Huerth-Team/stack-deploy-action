@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-docker context rm -f remote 2>/dev/null || true
+
 set -e
-docker context rm -f remote 2>/dev/null || true
+
 echo "Running: ${0} as: $(whoami) in: $(pwd)"
-docker context rm -f remote 2>/dev/null || true
+
 function cleanup_trap() {
     _ST="$?"
     if [[ "${_ST}" != "0" ]]; then
@@ -19,11 +19,11 @@ function cleanup_trap() {
     fi
     exit "${_ST}"
 }
-docker context rm -f remote 2>/dev/null || true
+
 mkdir -p /root/.ssh
 chmod 0700 /root/.ssh
 ssh-keyscan -p "${INPUT_PORT}" -H "${INPUT_HOST}" >> /root/.ssh/known_hosts
-docker context rm -f remote 2>/dev/null || true
+
 if [ -z "${INPUT_SSH_KEY}" ];then
     echo -e "\u001b[36mCreating and Copying SSH Key to: ${INPUT_HOST}"
     ssh-keygen -q -f /root/.ssh/id_rsa -N "" -C "docker-stack-deploy-action"
@@ -42,12 +42,10 @@ else
 fi
 
 trap cleanup_trap EXIT HUP INT QUIT PIPE TERM
-docker context rm -f remote 2>/dev/null || true
+
 
 echo -e "\u001b[36mVerifying Docker and Setting Context."
 ssh -p "${INPUT_PORT}" "${INPUT_USER}@${INPUT_HOST}" "docker info" > /dev/null
-echo -e "\u001b[36m_DEBUG."
-docker context ls
 
 docker context rm -f remote 2>/dev/null || true
 docker context create remote --docker "host=ssh://${INPUT_USER}@${INPUT_HOST}:${INPUT_PORT}"
