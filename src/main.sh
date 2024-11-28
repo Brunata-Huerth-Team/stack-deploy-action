@@ -64,4 +64,3 @@ fi
 docker context rm -f remote 2>/dev/null || true
 echo -e "\u001b[36mDeploying Stack: \u001b[37;1m${INPUT_NAME}"
 docker stack deploy -c "${INPUT_FILE}" "${INPUT_NAME}"
-docker context rm -f remote 2>/dev/null || true
