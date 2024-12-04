@@ -32,7 +32,12 @@ inputs:
   env_file:
     description: "Environment File"
     required: false
-
+  docker_user:
+    description: "Docker User for Login in Private registry"
+    required: true
+  docker_password:
+    description: "Docker User Password"
+    required: true
 runs:
   using: "docker"
   image: "Dockerfile"
