@@ -63,5 +63,6 @@ if [ -n "${INPUT_ENV_FILE}" ];then
 fi
 
 echo -e "\u001b[36mDeploying Stack: \u001b[37;1m${INPUT_NAME}"
-docker login ghcr.io
+docker login ghcr.io -u "${docker_username}" -p "${docker_password}"
 docker stack deploy --with-registry-auth -c "${INPUT_FILE}" "${INPUT_NAME}"
+docker logout
